@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>RT-qPCR (Real-Time Quantitative Polymerase Chain Reaction) Analysis Report</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h2>RT-qPCR (Real-Time Quantitative Polymerase Chain Reaction) Analysis Report</h2>
+
+<h2>Date: 2017-05-15 23:22:50</h2>
+
+<h2>Cq values and amplification efficiencies:</h2>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="right">Cq</th>
+<th align="right">Efficiency</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">1</td>
+<td align="right">45.00</td>
+<td align="right">1.0024</td>
+</tr>
+<tr>
+<td align="left"><em>2</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="right">24.87</td>
+<td align="right">0.6576</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="right">29.37</td>
+<td align="right">1.0004</td>
+</tr>
+<tr>
+<td align="left"><em>5</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="right">12.36</td>
+<td align="right">0.5978</td>
+</tr>
+<tr>
+<td align="left"><strong>7</strong></td>
+<td align="right">2.49</td>
+<td align="right">1.0001</td>
+</tr>
+<tr>
+<td align="left"><em>8</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="right">20.69</td>
+<td align="right">0.5883</td>
+</tr>
+<tr>
+<td align="left"><em>10</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>11</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="right">21.16</td>
+<td align="right">0.6202</td>
+</tr>
+<tr>
+<td align="left"><em>13</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>14</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="right">18.20</td>
+<td align="right">0.5485</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>17</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">18</td>
+<td align="right">18.69</td>
+<td align="right">0.6362</td>
+</tr>
+<tr>
+<td align="left"><em>19</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>20</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">21</td>
+<td align="right">18.50</td>
+<td align="right">1.1000</td>
+</tr>
+<tr>
+<td align="left"><strong>22</strong></td>
+<td align="right">1.00</td>
+<td align="right">1.0000</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="right">25.70</td>
+<td align="right">2209.6000</td>
+</tr>
+<tr>
+<td align="left"><em>24</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>25</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">26</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="right">24.20</td>
+<td align="right">0.6319</td>
+</tr>
+<tr>
+<td align="left"><em>28</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>29</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>30</strong></td>
+<td align="right">1.00</td>
+<td align="right">0.0905</td>
+</tr>
+<tr>
+<td align="left"><em>31</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>32</strong></td>
+<td align="right">7.94</td>
+<td align="right">0.2811</td>
+</tr>
+<tr>
+<td align="left"><em>33</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">34</td>
+<td align="right">1.87</td>
+<td align="right">0.8794</td>
+</tr>
+<tr>
+<td align="left"><em>35</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">36</td>
+<td align="right">13.43</td>
+<td align="right">0.6632</td>
+</tr>
+<tr>
+<td align="left"><strong>37</strong></td>
+<td align="right">11.00</td>
+<td align="right">0.3586</td>
+</tr>
+<tr>
+<td align="left"><em>38</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">39</td>
+<td align="right">18.43</td>
+<td align="right">1.0945</td>
+</tr>
+<tr>
+<td align="left"><em>40</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>41</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">42</td>
+<td align="right">20.09</td>
+<td align="right">1.0956</td>
+</tr>
+<tr>
+<td align="left">43</td>
+<td align="right">28.92</td>
+<td align="right">1.0477</td>
+</tr>
+<tr>
+<td align="left"><em>44</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">45</td>
+<td align="right">12.61</td>
+<td align="right">0.5111</td>
+</tr>
+<tr>
+<td align="left"><em>46</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">47</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>48</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>49</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>50</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">51</td>
+<td align="right">23.78</td>
+<td align="right">0.6555</td>
+</tr>
+<tr>
+<td align="left"><em>52</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>53</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">54</td>
+<td align="right">15.95</td>
+<td align="right">0.5482</td>
+</tr>
+<tr>
+<td align="left"><em>55</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>56</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>57</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">58</td>
+<td align="right">17.25</td>
+<td align="right">0.5517</td>
+</tr>
+<tr>
+<td align="left"><em>59</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">60</td>
+<td align="right">21.98</td>
+<td align="right">0.7010</td>
+</tr>
+<tr>
+<td align="left"><em>61</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>62</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">63</td>
+<td align="right">19.30</td>
+<td align="right">1.0970</td>
+</tr>
+<tr>
+<td align="left">64</td>
+<td align="right">17.12</td>
+<td align="right">1.0912</td>
+</tr>
+<tr>
+<td align="left"><em>65</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">66</td>
+<td align="right">21.54</td>
+<td align="right">0.6473</td>
+</tr>
+<tr>
+<td align="left">67</td>
+<td align="right">14.67</td>
+<td align="right">0.6436</td>
+</tr>
+<tr>
+<td align="left"><em>68</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">69</td>
+<td align="right">14.59</td>
+<td align="right">0.7494</td>
+</tr>
+<tr>
+<td align="left"><em>70</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">71</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">72</td>
+<td align="right">15.30</td>
+<td align="right">0.6284</td>
+</tr>
+<tr>
+<td align="left"><em>73</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>74</strong></td>
+<td align="right">29.30</td>
+<td align="right">0.9781</td>
+</tr>
+<tr>
+<td align="left">75</td>
+<td align="right">12.15</td>
+<td align="right">1.1753</td>
+</tr>
+<tr>
+<td align="left"><em>76</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>77</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>78</strong></td>
+<td align="right">6.72</td>
+<td align="right">0.9844</td>
+</tr>
+<tr>
+<td align="left">79</td>
+<td align="right">5.85</td>
+<td align="right">0.7985</td>
+</tr>
+<tr>
+<td align="left"><strong>80</strong></td>
+<td align="right">10.20</td>
+<td align="right">0.9877</td>
+</tr>
+<tr>
+<td align="left"><strong>81</strong></td>
+<td align="right">10.76</td>
+<td align="right">0.9879</td>
+</tr>
+<tr>
+<td align="left">82</td>
+<td align="right">18.09</td>
+<td align="right">1.0917</td>
+</tr>
+<tr>
+<td align="left">83</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>84</strong></td>
+<td align="right">26.82</td>
+<td align="right">0.9920</td>
+</tr>
+<tr>
+<td align="left"><em>85</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">86</td>
+<td align="right">31.07</td>
+<td align="right">1.2339</td>
+</tr>
+<tr>
+<td align="left">87</td>
+<td align="right">29.58</td>
+<td align="right">0.8596</td>
+</tr>
+<tr>
+<td align="left">88</td>
+<td align="right">13.58</td>
+<td align="right">1.1321</td>
+</tr>
+<tr>
+<td align="left"><em>89</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left"><em>90</em></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr>
+<td align="left">91</td>
+<td align="right">11.15</td>
+<td align="right">1.1839</td>
+</tr>
+<tr>
+<td align="left"><strong>92</strong></td>
+<td align="right">16.46</td>
+<td align="right">0.9772</td>
+</tr>
+<tr>
+<td align="left">93</td>
+<td align="right">9.23</td>
+<td align="right">0.9801</td>
+</tr>
+<tr>
+<td align="left">94</td>
+<td align="right">6.91</td>
+<td align="right">0.9790</td>
+</tr>
+<tr>
+<td align="left"><strong>95</strong></td>
+<td align="right">8.05</td>
+<td align="right">0.8942</td>
+</tr>
+<tr>
+<td align="left">96</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody></table>
+
+<h2>Cq values and amplification efficiencies after replacing above cut offs by nondetects (NA):</h2>
+
+<p>[1] &ldquo;Select option other than &#39;None&#39; and fill up necessary boxes to implement the method!&rdquo;</p>
+
+<h2>Cq values and amplification values after replacing nondetects by user defined value:</h2>
+
+<p>[1] &ldquo;Select option other than &#39;None&#39; and fill up necessary boxes to implement the method!&rdquo;</p>
+
+<h2>Cq values and amplification efficiencies after replacing specific values:</h2>
+
+<p>[1] &ldquo;Select option other than &#39;None&#39; and fill up necessary boxes to implement the method!&rdquo;</p>
+
+<h2>Cq values and amplification efficiencies after removing the nondetects within replicates (method- mean or median):</h2>
+
+<p>[1] &ldquo;Select option other than &#39;None&#39; to implement the method!&rdquo;</p>
+
+<h2>Combining technical replicates based on Cq values and S.D. of Cq values within replicates:</h2>
+
+<table><thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Cq</th>
+<th align="left">sd.Cq</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">37.19</td>
+<td align="left">11.052</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">18.62</td>
+<td align="left">8.846</td>
+</tr>
+<tr>
+<td align="left"><strong>7</strong></td>
+<td align="left">2.49</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">20.93</td>
+<td align="left">0.332</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">18.44</td>
+<td align="left">0.245</td>
+</tr>
+<tr>
+<td align="left">21</td>
+<td align="left">18.50</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>22</strong></td>
+<td align="left">14.96</td>
+<td align="left">19.742</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="left">25.70</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left">12.60</td>
+<td align="left">16.405</td>
+</tr>
+<tr>
+<td align="left"><strong>32</strong></td>
+<td align="left">7.94</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">34</td>
+<td align="left">1.87</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">36</td>
+<td align="left">13.43</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>37</strong></td>
+<td align="left">11.00</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">42</td>
+<td align="left">20.09</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">45</td>
+<td align="left">12.61</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">51</td>
+<td align="left">17.96</td>
+<td align="left">8.224</td>
+</tr>
+<tr>
+<td align="left">54</td>
+<td align="left">11.33</td>
+<td align="left">6.527</td>
+</tr>
+<tr>
+<td align="left">58</td>
+<td align="left">17.67</td>
+<td align="left">0.594</td>
+</tr>
+<tr>
+<td align="left">60</td>
+<td align="left">19.55</td>
+<td align="left">3.437</td>
+</tr>
+<tr>
+<td align="left">63</td>
+<td align="left">19.30</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">66</td>
+<td align="left">17.14</td>
+<td align="left">3.824</td>
+</tr>
+<tr>
+<td align="left">67</td>
+<td align="left">10.26</td>
+<td align="left">6.237</td>
+</tr>
+<tr>
+<td align="left"><strong>74</strong></td>
+<td align="left">29.30</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>80</strong></td>
+<td align="left">10.48</td>
+<td align="left">0.396</td>
+</tr>
+<tr>
+<td align="left"><strong>84</strong></td>
+<td align="left">26.82</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">86</td>
+<td align="left">30.32</td>
+<td align="left">1.054</td>
+</tr>
+<tr>
+<td align="left">88</td>
+<td align="left">13.58</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">91</td>
+<td align="left">12.28</td>
+<td align="left">3.745</td>
+</tr>
+<tr>
+<td align="left">94</td>
+<td align="left">6.91</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>95</strong></td>
+<td align="left">8.05</td>
+<td align="left">NA</td>
+</tr>
+</tbody></table>
+
+<h2>Combining technical replicates based on efficiencies and S.D. of Cq and efficiencies within replicates:</h2>
+
+<table><thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Cq</th>
+<th align="left">sd.Cq</th>
+<th align="left">effs</th>
+<th align="left">sd.effs</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">1</td>
+<td align="left">37.19</td>
+<td align="left">11.052</td>
+<td align="left">1.001</td>
+<td align="left">0.001466</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">18.62</td>
+<td align="left">8.846</td>
+<td align="left">0.628</td>
+<td align="left">0.042348</td>
+</tr>
+<tr>
+<td align="left"><strong>7</strong></td>
+<td align="left">2.49</td>
+<td align="left">NA</td>
+<td align="left">1.000</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">20.93</td>
+<td align="left">0.332</td>
+<td align="left">0.604</td>
+<td align="left">0.022614</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left">18.44</td>
+<td align="left">0.245</td>
+<td align="left">0.760</td>
+<td align="left">0.293195</td>
+</tr>
+<tr>
+<td align="left">21</td>
+<td align="left">18.50</td>
+<td align="left">NA</td>
+<td align="left">1.100</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>22</strong></td>
+<td align="left">14.96</td>
+<td align="left">19.742</td>
+<td align="left">1.024</td>
+<td align="left">0.033736</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="left">25.70</td>
+<td align="left">NA</td>
+<td align="left">2209.600</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left">12.60</td>
+<td align="left">16.405</td>
+<td align="left">0.361</td>
+<td align="left">0.382880</td>
+</tr>
+<tr>
+<td align="left"><strong>32</strong></td>
+<td align="left">7.94</td>
+<td align="left">NA</td>
+<td align="left">0.281</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">34</td>
+<td align="left">1.87</td>
+<td align="left">NA</td>
+<td align="left">0.879</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">36</td>
+<td align="left">13.43</td>
+<td align="left">NA</td>
+<td align="left">0.663</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>37</strong></td>
+<td align="left">11.00</td>
+<td align="left">NA</td>
+<td align="left">0.359</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">42</td>
+<td align="left">20.09</td>
+<td align="left">NA</td>
+<td align="left">1.096</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">45</td>
+<td align="left">12.61</td>
+<td align="left">NA</td>
+<td align="left">0.511</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">51</td>
+<td align="left">17.96</td>
+<td align="left">8.224</td>
+<td align="left">0.915</td>
+<td align="left">0.367514</td>
+</tr>
+<tr>
+<td align="left">54</td>
+<td align="left">11.33</td>
+<td align="left">6.527</td>
+<td align="left">0.766</td>
+<td align="left">0.308475</td>
+</tr>
+<tr>
+<td align="left">58</td>
+<td align="left">17.67</td>
+<td align="left">0.594</td>
+<td align="left">0.822</td>
+<td align="left">0.381787</td>
+</tr>
+<tr>
+<td align="left">60</td>
+<td align="left">19.55</td>
+<td align="left">3.437</td>
+<td align="left">0.896</td>
+<td align="left">0.275894</td>
+</tr>
+<tr>
+<td align="left">63</td>
+<td align="left">19.30</td>
+<td align="left">NA</td>
+<td align="left">1.097</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">66</td>
+<td align="left">17.14</td>
+<td align="left">3.824</td>
+<td align="left">0.675</td>
+<td align="left">0.065095</td>
+</tr>
+<tr>
+<td align="left">67</td>
+<td align="left">10.26</td>
+<td align="left">6.237</td>
+<td align="left">0.721</td>
+<td align="left">0.109550</td>
+</tr>
+<tr>
+<td align="left"><strong>74</strong></td>
+<td align="left">29.30</td>
+<td align="left">NA</td>
+<td align="left">0.978</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>80</strong></td>
+<td align="left">10.48</td>
+<td align="left">0.396</td>
+<td align="left">0.988</td>
+<td align="left">0.000168</td>
+</tr>
+<tr>
+<td align="left"><strong>84</strong></td>
+<td align="left">26.82</td>
+<td align="left">NA</td>
+<td align="left">0.992</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">86</td>
+<td align="left">30.32</td>
+<td align="left">1.054</td>
+<td align="left">1.047</td>
+<td align="left">0.264689</td>
+</tr>
+<tr>
+<td align="left">88</td>
+<td align="left">13.58</td>
+<td align="left">NA</td>
+<td align="left">1.132</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">91</td>
+<td align="left">12.28</td>
+<td align="left">3.745</td>
+<td align="left">1.047</td>
+<td align="left">0.118480</td>
+</tr>
+<tr>
+<td align="left">94</td>
+<td align="left">6.91</td>
+<td align="left">NA</td>
+<td align="left">0.979</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>95</strong></td>
+<td align="left">8.05</td>
+<td align="left">NA</td>
+<td align="left">0.894</td>
+<td align="left">NA</td>
+</tr>
+</tbody></table>
+
+<h2>Delta Cq values:</h2>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="left">ID</th>
+<th align="left">deltaCq</th>
+<th align="left">sd.deltaCq</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">8</td>
+<td align="left">23</td>
+<td align="left">8.03429</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><strong>32</strong></td>
+<td align="left">-9.72571</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="left"><strong>74</strong></td>
+<td align="left">11.63429</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">26</td>
+<td align="left">86</td>
+<td align="left">12.65429</td>
+<td align="left">6.07</td>
+</tr>
+<tr>
+<td align="left">28</td>
+<td align="left">91</td>
+<td align="left">-5.38571</td>
+<td align="left">7.06</td>
+</tr>
+<tr>
+<td align="left">29</td>
+<td align="left">94</td>
+<td align="left">-10.75571</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">30</td>
+<td align="left"><strong>95</strong></td>
+<td align="left">-9.61571</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><strong>22</strong></td>
+<td align="left">-2.70571</td>
+<td align="left">20.63</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">34</td>
+<td align="left">-15.79571</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><strong>37</strong></td>
+<td align="left">-6.66571</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left">88</td>
+<td align="left">-4.08571</td>
+<td align="left">NA</td>
+</tr>
+</tbody></table>
+
+<h2>Delta Delta Cq values and fold concentrations of target samples: </h2>
+
+<table><thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">deltadeltaCq</th>
+<th align="left">Fold Conc.[log]</th>
+<th align="left">sd.deltadeltaCq</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">23</td>
+<td align="left">15.35</td>
+<td align="left">-10.64</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>32</strong></td>
+<td align="left">-2.41</td>
+<td align="left">1.67</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>74</strong></td>
+<td align="left">18.95</td>
+<td align="left">-13.14</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left">86</td>
+<td align="left">19.97</td>
+<td align="left">-13.84</td>
+<td align="left">21.5</td>
+</tr>
+<tr>
+<td align="left">91</td>
+<td align="left">1.93</td>
+<td align="left">-1.34</td>
+<td align="left">21.8</td>
+</tr>
+<tr>
+<td align="left">94</td>
+<td align="left">-3.44</td>
+<td align="left">2.38</td>
+<td align="left">NA</td>
+</tr>
+<tr>
+<td align="left"><strong>95</strong></td>
+<td align="left">-2.30</td>
+<td align="left">1.59</td>
+<td align="left">NA</td>
+</tr>
+</tbody></table>
+
+<h2>Relative expression ratio of target samples:</h2>
+
+<table><thead>
+<tr>
+<th align="left">ID</th>
+<th align="left">Roche Method</th>
+<th align="left">Pfaffl Method</th>
+<th align="left">delta delta Cq Method</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">23</td>
+<td align="left">-199.269</td>
+<td align="left">-118.1844</td>
+<td align="left">10.64</td>
+</tr>
+<tr>
+<td align="left"><strong>32</strong></td>
+<td align="left">8.714</td>
+<td align="left">-3.0624</td>
+<td align="left">-1.67</td>
+</tr>
+<tr>
+<td align="left"><strong>74</strong></td>
+<td align="left">-0.713</td>
+<td align="left">0.4215</td>
+<td align="left">13.13</td>
+</tr>
+<tr>
+<td align="left">86</td>
+<td align="left">-2.757</td>
+<td align="left">-0.9171</td>
+<td align="left">13.84</td>
+</tr>
+<tr>
+<td align="left">91</td>
+<td align="left">-1.929</td>
+<td align="left">-0.0885</td>
+<td align="left">1.34</td>
+</tr>
+<tr>
+<td align="left">94</td>
+<td align="left">-1.218</td>
+<td align="left">-0.0731</td>
+<td align="left">-2.39</td>
+</tr>
+<tr>
+<td align="left"><strong>95</strong></td>
+<td align="left">-0.463</td>
+<td align="left">-0.2580</td>
+<td align="left">-1.60</td>
+</tr>
+</tbody></table>
+
+<h2>Settings used during RT-qPCR analysis:</h2>
+
+<p>Select the type of PCR:  LC480 </p>
+
+<p>Select efficiency computing method:  sigfit </p>
+
+<p>Select to apply the cut off:  None </p>
+
+<p>Cq cut off:  NA </p>
+
+<p>efficiency cut off:  NA </p>
+
+<p>Select to replace the specific Cq and Eff. values:  None </p>
+
+<p>The row, where Cq value is to be replaced:  </p>
+
+<p>New Cq value:  </p>
+
+<p>The row, where efficiency value is to be replaced:  NA </p>
+
+<p>New Efficiency value:  NA </p>
+
+<p>Select to replace all NAs by user defined value:  None </p>
+
+<p>Provide the Cq value to replace NAs:  NA </p>
+
+<p>Provide the efficiency value to replace NAs:  NA </p>
+
+<p>Select method to remove nondetects:  None </p>
+
+<p>Select method to combine Technical Replicates:  Mean </p>
+
+<p>Type the name of reference gene under column &#39;Target Name&#39;:  hk </p>
+
+<h2>Session Information:</h2>
+
+<p>R version 3.3.2 (2016-10-31)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows &gt;= 8 x64 (build 9200)</p>
+
+<p>locale:
+[1] LC_COLLATE=English_United States.1252 
+[2] LC_CTYPE=English_United States.1252<br/>
+[3] LC_MONETARY=English_United States.1252
+[4] LC_NUMERIC=C<br/>
+[5] LC_TIME=English_United States.1252    </p>
+
+<p>attached base packages:
+character(0)</p>
+
+<p>other attached packages:
+[1] RTqPCR_1.0</p>
+
+<p>loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.9           BiocInstaller_1.24.0  DEoptimR_1.0-8<br/>
+ [4] RColorBrewer_1.1-2    NormqPCR_1.20.0       ReadqPCR_1.20.0<br/>
+ [7] highr_0.6             methods_3.3.2         utils_3.3.2<br/>
+[10] tools_3.3.2           grDevices_3.3.2       zlibbioc_1.20.0<br/>
+[13] digest_0.6.12         jsonlite_1.3          evaluate_0.10<br/>
+[16] preprocessCore_1.36.0 lattice_0.20-34       Matrix_1.2-7.1<br/>
+[19] shiny_1.0.3           parallel_3.3.2        stringr_1.2.0<br/>
+[22] knitr_1.15.1          graphics_3.3.2        htmlwidgets_0.8<br/>
+[25] datasets_3.3.2        stats_3.3.2           sourcetools_0.1.5<br/>
+[28] rprojroot_1.2         grid_3.3.2            robustbase_0.92-7<br/>
+[31] base_3.3.2            Biobase_2.34.0        R6_2.2.0<br/>
+[34] rgl_0.97.0            minpack.lm_1.2-1      rmarkdown_1.5<br/>
+[37] qpcR_1.4-0            magrittr_1.5          backports_1.0.5<br/>
+[40] htmltools_0.3.5       MASS_7.3-45           BiocGenerics_0.20.0<br/>
+[43] mime_0.5              xtable_1.8-2          httpuv_1.3.3<br/>
+[46] stringi_1.1.2         affy_1.52.0           markdown_0.7.7<br/>
+[49] affyio_1.44.0        </p>
+
+</body>
+
+</html>

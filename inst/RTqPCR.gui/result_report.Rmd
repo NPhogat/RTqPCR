@@ -1,0 +1,137 @@
+RT-qPCR (Real-Time Quantitative Polymerase Chain Reaction) Analysis Report
+--------------------------------------------------------------------------
+
+Date: `r Sys.time()`
+-----------------------------------------
+
+Cq values and amplification efficiencies:
+-----------------------------------------
+````{r, echo=FALSE}
+x <- Cq()
+x.result <- x[,c("exprs","effs")]
+names(x.result) <- c("Cq","Efficiency")
+knitr::kable(x.result, digits = 4, format = "markdown")
+````
+
+Cq values and amplification efficiencies after replacing above cut offs by nondetects (NA):
+-------------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+if (r.cutoff()== "None")
+  {
+  text1()
+  }
+if (r.cutoff()== "Replace"){
+x <- Cq.cut()
+x.result <- x[,c("exprs","effs")]
+names(x.result) <- c("Cq","Efficiency")
+knitr::kable(x.result, digits = 4)
+}
+````
+
+Cq values and amplification values after replacing nondetects by user defined value:
+------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+if (replace.nas()== "None"){text1()}
+if (replace.nas()== "Replace"){
+x <- Cq.rena()
+x.result <- x[,c("exprs","effs")]
+names(x.result) <- c("Cq","Efficiency")
+knitr::kable(x.result, digits = 4)
+}
+````
+
+Cq values and amplification efficiencies after replacing specific values:
+-------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+if (replace.value()=="None"){text1()}
+if (replace.value()=="Replace"){
+x <- Cq.re()
+x.result <- x[,c("exprs","effs")]
+names(x.result) <- c("Cq","Efficiency")
+knitr::kable(x.result, digits = 4)
+}
+````
+
+Cq values and amplification efficiencies after removing the nondetects within replicates (method- mean or median):
+------------------------------------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+if (n.det() == "None"){
+  text2()
+  }
+if ((n.det()== "Mean")||(n.det()=="Median")){
+x <- Cq.nd()
+x.result <- x[,c("exprs","effs")]
+names(x.result) <- c("Cq","Efficiency")
+knitr::kable(x.result, digits = 4)
+}
+````
+
+Combining technical replicates based on Cq values and S.D. of Cq values within replicates:
+------------------------------------------------------------------------------------------
+````{r, echo=FALSE}
+x <- CqReps()
+x.result <- x[,c("ID","Cq","sd.Cq")]
+knitr::kable(x.result, digits = 4)
+````
+
+Combining technical replicates based on efficiencies and S.D. of Cq and efficiencies within replicates:
+-------------------------------------------------------------------------------------------------------
+````{r, echo=FALSE}
+x <- effsReps()
+x.result <- x[,c("ID","Cq","sd.Cq","effs","sd.effs")]
+knitr::kable(x.result, digits = 4)
+````
+
+Delta Cq values:
+-----------------------------------------
+```{r, echo=FALSE}
+x <- deltaCq()
+x.result <- x[,c("ID","deltaCq","sd.deltaCq")]
+knitr::kable(x.result, digits = 4)
+```
+
+Delta Delta Cq values and fold concentrations of target samples: 
+----------------------------------------------------------------
+```{r, echo=FALSE}
+knitr::kable(deltadeltaCq(), digits = 4)
+```
+
+Relative expression ratio of target samples:
+--------------------------------------------
+````{r, echo=FALSE}
+knitr::kable(NRQeffs(), digits = 4)
+````
+
+
+Settings used during RT-qPCR analysis:
+--------------------------------------------
+````{r, echo=FALSE, results='asis'}
+##cat("Input file name: ", ifelse(is.null(input[["input.file"]][["name"]]), "\n\n")
+cat("Select the type of PCR: ", input$pcrtype, "\n\n")
+cat("Select efficiency computing method: ", input$efficiencymethod, "\n\n")
+cat("Select to apply the cut off: ", input$replaceabovecutoff, "\n\n")
+cat("Cq cut off: ", input$Cqcutoff, "\n\n")
+cat("efficiency cut off: ", input$effscutoff, "\n\n")
+cat("Select to replace the specific Cq and Eff. values: ", input$replacevalue, "\n\n")
+cat("The row, where Cq value is to be replaced: ", input$Cqrow, "\n\n")
+cat("New Cq value: ", input$cqvalue, "\n\n")
+cat("The row, where efficiency value is to be replaced: ", input$effsrow, "\n\n")
+cat("New Efficiency value: ", input$neweffs, "\n\n")
+cat("Select to replace all NAs by user defined value: ", input$replacenas, "\n\n")
+cat("Provide the Cq value to replace NAs: ", input$cqna, "\n\n")
+cat("Provide the efficiency value to replace NAs: ", input$effsna, "\n\n")
+cat("Select method to remove nondetects: ", input$nondetects, "\n\n")
+cat("Select method to combine Technical Replicates: ", input$ctechreps, "\n\n")
+cat("Type the name of reference gene under column 'Target Name': ", input$Reference, "\n\n")
+````
+
+
+Session Information:
+--------------------------------------------
+````{r, echo=FALSE, results='asis'}
+sessionInfo("RTqPCR")
+````
+
+
+
+

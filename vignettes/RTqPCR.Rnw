@@ -1,0 +1,583 @@
+%\VignetteIndexEntry{RTqPCR: A work flow for analysis and normalisation of pre- processing RT-qPCR data}
+%\VignetteDepends{stats,RColorBrewer,Biobase,methods,ReadqPCR}
+%\VignetteKeywords{RTqPCR, Cq Values, Efficiency, delta delta Cq, Fold Concentration, relative expression ratio}
+%\VignettePackage{RTqPCR}
+%
+\documentclass[11pt]{article}
+\usepackage{geometry}\usepackage{color}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.75}
+\usepackage[%
+pdftitle={RTqPCR: Functions for analysis and normalisation of pre-processing RT-qPCR data},%
+pdfauthor={Navneet Phogat and Matthias Kohl},%
+pdfsubject={RTqPCR},%
+pdfkeywords={RTqPCR, Cq Values, Efficiency, delta delta Cq, Fold Concentration, relative expression ratio},%
+pagebackref,bookmarks,colorlinks,linkcolor=darkblue,citecolor=darkblue,%
+pagecolor=darkblue,raiselinks,plainpages,pdftex]{hyperref}
+%
+\markboth{\sl Package ``{\tt RTqPCR}''}{\sl Package ``{\tt RTqPCR}''}
+%
+%------------------------------------------------------------------------------
+\newcommand{\code}[1]{{\tt #1}}
+\newcommand{\pkg}[1]{{\tt "#1"}}
+\newcommand{\myinfig}[2]{%
+%  \begin{figure}[htbp]
+    \begin{center}
+      \includegraphics[width = #1\textwidth]{#2}
+%      \caption{\label{#1}#3}
+    \end{center}
+%  \end{figure}
+}
+%------------------------------------------------------------------------------
+%
+%------------------------------------------------------------------------------
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\SweaveOpts{keep.source = TRUE, eval = TRUE, include = FALSE}
+%-------------------------------------------------------------------------------
+\title{RTqPCR: Functions for analysis and normalisation of pre-processing RT-qPCR data}
+%-------------------------------------------------------------------------------
+\author{Navneet Phogat and Matthias Kohl\\
+Institute of Precision Medicine\\
+Hochschule Furtwangen University, Germany\medskip\\
+}
+\maketitle
+\tableofcontents
+%-------------------------------------------------------------------------------
+\section{Introduction}
+%-------------------------------------------------------------------------------
+The package \pkg{RTqPCR} provides methods for the normalization and analysis of pre-processing real-time
+quantitative RTqPCR data. The this vignette we describe and demonstrate the available functions.The package \pkg{RTqPCR} is designed on the basis of experimental data of LC480 light cycler and Mx3005P RT-qPCR. If the user wants to implement the package for any other RTqPCR, then, user may change the data into one of the two formats
+of LC480 light cycler and Mx3005P RTqPCR. The package \pkg{RTqPCR} is divided into six parts:
+First, we show how the user may read the fluorescence and sample information raw data files and compute Cq values and amplification efficiencies. Second, we demonstrate, how the user may deal with Cq values and efficiencies above user-chosen threshold values, replace the particular values and deal with non-detects in Cq values and 
+efficiencies. Third, how the user may combine technical replicates and compute standard deviation of
+Cq values and amplification efficiencies within replicates. Forth, how the user may compute delta Cq values and standard deviation of delta Cq, compute delta delta Cq values, standard deviation of delta delta Cq values, fold concentration (log values) based on delta delta Cq values and visualisation of the results of fold concentration in the form of bar plots too. Fifth, how the user may compute the relative expression ratio based on the three different methods - Method by Roche, Method by Pfaffl etal., ddCq (delta delta Cq) method and may visualise the results in the form of bar plots too. Sixth part is about auxiliary functions.
+
+User may load the \pkg{RTqPCR} package.
+<<RTqPCR>>=
+library(RTqPCR)
+@
+
+%-------------------------------------------------------------------------------
+\section{Reading the raw fluorescent data} 
+%-------------------------------------------------------------------------------
+The \code{read.RTqPCR} function is based on \code{\link[ReadqPCR]{read.LC480}} function from the 
+\pkg{ReadqPCR} package from \code{Biocondcutor} software in R software and \code{\link{read.Mx3005P}}
+function. Details of \code{read.LC480} function is present in \pkg{ReadqPCR} package. The detail of
+\code{read.Mx3005P} is present in section \code{Auxiliary Function}. The \code{read.RTqPCR} 
+function reads in the .txt Tab delimited file of raw fluorescent data of both LC480 light cycler
+and Mx3005P RTqPCR and populate an object of class \code{RTqPCRBatch} with new slots. Following 
+is the example to read in the raw fluorescent data of LC480 light cycler through \code{read.RTqPCR} 
+function:
+
+<<read.RTqPCR>>=
+#library(ReadqPCR) # load the ReadqPCR library
+path <- system.file("exData", package = "RTqPCR")
+LC480.example <- file.path(path, "LC480_Example.txt") 
+rtData.LC480 <- read.RTqPCR(LC480.example, PCRtype = "LC480")
+rtData.LC480 ## to express the overview of fluorescent data
+head(exprs(rtData.LC480[,1:5])) ## to express the first five fluorescent data
+head(pData(rtData.LC480)) ## to express the pheno data
+head(fData(rtData.LC480)) ## to express the feature data
+@
+ 
+The example to read in the raw fluorescent data of Mx3005P RTqPCR through \code{read.RTqPCR} function
+is as follows:
+
+<<read.RTqPCR>>=
+Mx3005P.example <- file.path(path, "Mx3005P_Example.txt") 
+rtData.Mx <- read.RTqPCR(Mx3005P.example, PCRtype = "Mx3005P")
+rtData.Mx ## to express the overview of fluorescent data
+head(exprs(rtData.Mx[,1:5])) ## to express the first five fluorescent data
+head(pData(rtData.Mx)) ## to express the pheno data
+head(fData(rtData.Mx)) ## to express the feature data
+@
+
+For other RTqPCR machines, the user needs to save the raw fluorescent data into the provided
+.txt Tab delimited format files of LC480 or Mx3005P. 
+%-------------------------------------------------------------------------------
+\section{Reading the sample information data} 
+%-------------------------------------------------------------------------------
+read.RTqPCRSampleInfo function is based on \code{Read.LC480SampleInfo} and \code{Read.Mx3005PSampleInfo} 
+functions. The \code{read.RTqPCRSampleInfo} function populates sample information data into the resulting 
+\code{AnnotatedDataFrame} format. The example to read in the .txt Tab delimited files of sample information
+data of LC480 light cycler through \code{read.RTqPCRSampleInfo} function, is as follows:
+<<read.RTqPCRSampleInfo>>=
+SampleInfoLC480 <- file.path(path, "LC480_example_SampleInfo.txt")
+samInfoLC480 <- read.RTqPCRSampleInfo(SampleInfoLC480, PCRtype = "LC480")
+samInfoLC480  ## to express the overview of the sample information data
+head(pData(samInfoLC480))
+@
+
+To read in the .txt Tab delimited file of sample information data of Mx3005P, designed on the basis of given 
+sample format in exData of \pkg{RTqPCR} package, the example is illustrated below:
+<<read.RTqPCRSampleInfo>>=
+SampleInfoMx <- file.path(path, "Mx3005P_example_SampleInfo.txt")
+samInfoMx <- read.RTqPCRSampleInfo(SampleInfoMx, PCRtype = "Mx3005P")
+samInfoMx ## to express the overview of the sample information data
+head(pData(samInfoMx))
+@
+%-------------------------------------------------------------------------------
+\section{Computing the Cq (Cycle Threshold) and amplification efficiencies} 
+%-------------------------------------------------------------------------------
+The \code{CqEffs} function compute the Cq values, amplification efficiencies and standard errors of 
+amplification efficiencies for LC480 light cycler and  Mx3005P RTqPCR from raw fluorescent data. The \code{CqEffs} function works on object of class \code{RTqPCRBatch} and populate the final results into an object of 
+class \code{RTqPCRBatch} with new slots. CqEffs function is based on the function \code{\link[qpcR]{pcrbatch}}
+from \pkg{qpcR}. The default method of computation is the sigmoidal model. To compute the Cq values and amplification efficiencies, first of all we need to merge the fluorescent and sample information data. Following is the example to merge the fluorescent and sample information data of LC480 light cycler:
+
+<<merge>>=
+## To merge the fluorescent and sample information data
+merge.LC480<-merge(rtData.LC480,samInfoLC480) 
+
+## to express the overview of merge data
+merge.LC480
+@
+
+Following is the example to compute the CqValues, amplification efficiencies and standard errors of amplification efficiencies of LC480 light cycler data by default sigmoidal method:
+
+<<CqEffs, results= hide>>=
+## To compute the CqValues and amplification efficiencies by sigmoidal model
+res.LC <- CqEffs(merge.LC480, PCRtype = "LC480", baseline = "none") 
+@
+
+<<CqEffs>>=
+#to see the overview of data
+res.LC 
+#to express the first five CqValues
+exprs(res.LC)[1:5]
+#to express the first five amplification efficiencies
+effs(res.LC)[1:5]
+#to express the first five standard errors of amplification efficiencies
+se.effs(res.LC)[1:5]
+@
+
+To express all the Cq values, amplification efficiencies and standard errors in amplification efficiencies, user can implement the following code:
+
+<<CqEffs Cq values efficiencies and standard erros, eval=FALSE>>=
+## To express all Cq values
+exprs(res.LC) 
+## To express all amplification efficiencies
+effs(res.LC)
+## To express standard errors in amplification efficiencies
+se.effs(res.LC)
+@
+
+To compute the Cq values, amplification efficiencies and standard error of amplification efficiencies of LC480 light cycler data by fit exponential method:
+
+<<CqEffs, eval = FALSE>>=
+res.LC1<- CqEffs(merge.LC480, PCRtype = "LC480", Effmethod = "expfit",baseline = "none")
+res.LC1 
+exprs(res.LC1)[1:5] 
+effs(res.LC1)[1:5] 
+se.effs(res.LC1)[1:5]
+exprs(res.LC1) 
+effs(res.LC1)
+se.effs(res.LC1)
+@
+
+To compute the Cq values, amplification efficiencies and standard error of amplification efficiencies of LC480 light cycler data by window of linearity method:
+
+<<CqEffs, eval = FALSE>>=
+res.LC2<- CqEffs(merge.LC480, PCRtype = "LC480", Effmethod = "sliwin", baseline = "none")
+res.LC2
+exprs(res.LC2)[1:5] 
+effs(res.LC2)[1:5] 
+se.effs(res.LC2)[1:5] 
+exprs(res.LC2) 
+effs(res.LC2)
+se.effs(res.LC2)
+@
+
+To compute the Cq values, amplification efficiencies and standard errors of amplification efficiencies of LC480 light cycler data by linear regression of efficiency method:
+
+<<CqEffs, eval = FALSE>>=
+res.LC3<- CqEffs(merge.LC480, PCRtype = "LC480", Effmethod = "LRE", baseline = "none")
+res.LC3 
+exprs(res.LC3)[1:5] 
+effs(res.LC3)[1:5] 
+se.effs(res.LC3)[1:5] 
+exprs(res.LC3) 
+effs(res.LC3)
+se.effs(res.LC3)
+@
+
+To compute the Cq values and amplification efficincies for Mx3005P RTqPCR, user needs to implement the
+\code{"Mx3005"} in argument \code{PCRtype} of \code{CqEffs} function. Remaining arguments will remain same
+as implemented above for computation of Cq values and amplification efficiencies for LC480 light cycler data.
+For example, like LC480 light cycler, here we first merge the fluorescent and sample information data of Mx3005P RTqPCR and then, compute the Cq values, amplification efficiencies and standard errors of amplification efficiencies for Mx3005 RTqPCR. Following is the example to merge the data:
+
+<<merge>>=
+## To merge the fluorescent and sample information data
+merge.Mx<-merge(rtData.Mx,samInfoMx) 
+@
+
+Following is the example to compute Cq values and amplification efficiencies for Mx3005P RTqPCR by default sigmoidal model: 
+<<CqEffs, results = hide>>=
+## To compute the CqValues and amplification efficiencies 
+##by default method (sigmoidal model)
+res.Mx <- CqEffs(merge.Mx, PCRtype = "Mx3005P", baseline = "none")
+@
+
+<<CqEffs>>=
+#To express the overview of data
+res.Mx 
+#to express the first five CqValues
+exprs(res.Mx)[1:5]
+#to express the first five amplification efficiencies
+effs(res.Mx)[1:5]
+#to express the first five standard errors of efficiencies
+se.effs(res.Mx)[1:5] 
+@
+
+To visualise all the CqValues and amplification efficiencies and standard errors of amplification efficiencies,
+user can implement following code:
+
+<<CqEffs visualise all Cq values and amplification efficiencies, eval=FALSE>>=
+## To express all Cq values
+exprs(res.Mx)   
+## To express all amplification efficiencies
+effs(res.Mx)
+## To express all standard errors in amplification efficiencies
+se.effs(res.Mx)
+@
+
+Following is the example to compute the Cq values, amplification efficiencies and standard errors of amplification efficiencies for Mx3005P RTqPCR by fit exponential method:
+
+<<CqEffs,eval=FALSE>>=
+## To compute the CqValues and amplification efficiencies by fit exponential method
+res.Mx1 <- CqEffs(merge.Mx, PCRtype = "Mx3005P", Effmethod = "expfit", baseline = "none")
+res.Mx1 
+exprs(res.Mx1)[1:5] 
+effs(res.Mx1)[1:5] 
+se.effs(res.Mx1)[1:5] 
+exprs(res.Mx1) 
+effs(res.Mx1)
+se.effs(res.Mx1)
+@
+
+Following is the example to compute the Cq values, amplification efficiencies and standard errors of amplification efficiencies for Mx3005P RTqPCR by window of liearity method:
+
+<<CqEffs,eval=FALSE>>=
+# To compute the CqValues and amplification efficiencies by window of linearity (sliwin)
+res.Mx2 <- CqEffs(merge.Mx, PCRtype = "Mx3005P", Effmethod = "sliwin", baseline = "none")
+res.Mx2 
+exprs(res.Mx2)[1:5] 
+effs(res.Mx2)[1:5] 
+se.effs(res.Mx2)[1:5] 
+exprs(res.Mx2) 
+effs(res.Mx2)
+se.effs(res.Mx2)
+@
+
+Following is the example to compute the Cq values, amplification efficiencies and standard errors of amplification efficiencies for Mx3005P RTqPCR by linear regression of efficiency method:
+ 
+<<CqEffs, eval = FALSE>>=
+res.Mx3 <- CqValues(merge.Mx, PCRtype = "Mx3005P", Effmethod = "LRE", baseline = "none")
+res.Mx3 
+exprs(res.Mx3)[1:5] 
+effs(res.Mx3)[1:5] 
+se.effs(res.Mx3)[1:5] 
+exprs(res.Mx3) 
+effs(res.Mx3)
+se.effs(res.Mx3)
+@
+
+%-------------------------------------------------------------------------------
+\section{Replacing the values and removing the non-detects of Cq values and amplification efficiencies} 
+%-------------------------------------------------------------------------------
+This part is further divided into four different subsections, based on the functions. The subsections are described in detail as follows:
+%-------------------------------------------------------------------------------
+\subsection{ReplaceAboveCutOff} 
+%-------------------------------------------------------------------------------
+The function \code{ReplaceAboveCutOff} is specifically designed to replace the Cq values and amplification efficiencies above a cut off level by \code{NA}. The cut off level for Cq values and efficiencies is defined by the user based on the values and his experience with analysis of RT-qPCR data. Even then, it is recommended that the user should set the Cq cut off as a non-negative value below 40 and amplification efficiency cut off as non negative value below 2. The user can define the cutoff value for Cq and amplification efficiency based on his experimental data. The \code{ReplaceAboveCutOff} function uses the object of class \code{RTqPCRBatch} and returns the resulting data as an object of class \code{RTqPCRBatch}. The output of \code{CqEffs}, \code{ReplaceNAs}, \code{ReplaceValue}, \code{NonDetects} and \code{ReplaceAboveCutOff} can be implemented as an input for the \code{ReplaceAboveCutOff} function. Following is the example to implement the \code{ReplaceAboveCutOff} function:
+
+<<ReplaceAboveCutOff>>=
+Cqeffs.cutoff <- ReplaceAboveCutOff(res.LC,NewVal = NA, Cqcutoff = 37, effscutoff = 2)
+## to visualise the overview of the resulting data
+Cqeffs.cutoff 
+## to express the first five Cq values
+exprs(Cqeffs.cutoff)[1:5]
+## to express the first five amplification efficiencies
+effs(Cqeffs.cutoff)[1:5] 
+@
+
+%-------------------------------------------------------------------------------
+\subsection{ReplaceValue} 
+%-------------------------------------------------------------------------------
+
+The \code{ReplaceValue} function provides an opportunity to replace any value of Cq and amplification efficiency by a desired value, including \code{NA} too. This function is very useful, when because of the experimental error, manual error, instrumental error or software error the Cq and amplification efficiency for a negative sample is produced. In this case, the user can replace the values of the specific negative sample by non detects (NA). This function is also of greater use, if the user wants to replace any specific non detects by a value, may be by the value of another perfectly expressed technical replicate. The \code{ReplaceValue function} works on an object of class \code{RTqPCRBatch} and returns the resulting data too in the format of class \code{RTqPCRBatch}. The input for the \code{ReplaceValue} function can be output of any of the functions, including \code{CqEffs}, \code{ReplaceNAs}, \code{NonDetects}, \code{ReplaceAboveCutOff}, \code{ReplaceValue}. Following is the example of implementation of \code{ReplaceValue} function:
+
+<<ReplaceValue>>=
+Cqeffs.replace <- ReplaceValue(res.LC, NewCq = 36, Neweffs = 1, Cqrow = 24, effsrow = 24)
+## to visualise the overview of the resulting data
+Cqeffs.replace 
+## to visualise the replaced value of Cq
+exprs(Cqeffs.replace)[24]
+## to visualise the replaced value of amplification efficiency
+effs(Cqeffs.replace)[24] 
+@
+
+%-------------------------------------------------------------------------------
+\subsection{ReplaceNAs} 
+%-------------------------------------------------------------------------------
+The \code{ReplaceNAs} function is designed for replacing the non detects by a defined value. The defined value depends on the user. The \code{ReplaceNAs} function works on the object of class \code{RTqPCRBatch} and returns the resulting data too in the same format of class \code{RTqPCRBatch}. The output of any of the functions, including \code{CqEffs}, \code{ReplaceAboveCutOff}, \code{ReplaceValue}, \code{NonDetects} can be implemented as an input for the \code{ReplaceNAs} function. Following is an example to execute \code{ReplaceNAs} function:
+
+
+<<ReplaceNAs>>=
+Cqeffs.NA <- ReplaceNAs(res.LC, NewCqNA = 30, NeweffsNA = 1)
+## to visualise the overview of the resulting data
+Cqeffs.NA 
+## to express first five Cq values 
+exprs(Cqeffs.NA)[1:5]
+## to express first five amplification efficiencies
+effs(Cqeffs.NA)[1:5] 
+@
+
+%-------------------------------------------------------------------------------
+\subsection{NonDetects} 
+%-------------------------------------------------------------------------------
+The non detects in the Cq values and amplification efficiencies can be replaced by using the \code{NonDetects} function. This function is based on replacing the non detects within the technical replicates based on the mean or median values of the technical replicates of the sample. In the case of a sample, if all the technical replicates are present as non detects (NAs), then the non detects for that sample will not be replaced. It will replace the non detects in a sample, if atleast one of the technical replicate of a sample has expressed. The \code{NonDetects} function works on the object of class \code{RTqPCRBatch} and returns the resulting data too in the same format of class \code{RTqPCRBatch}. The output of any of the functions, including \code{CqEffs}, \code{ReplaceAboveCutOff}, \code{ReplaceValue} can be implemented as an input for the \code{NonDetects} function. The default method of replacing the non detects is mean. Following is the example to replace the non detects on the basis of mean value within technical replicates and display of the first ten Cq and amplification efficiencies:
+
+<<NonDetects mean method>>=
+Cqeffs.nondetects <- NonDetects(res.LC)
+## to express the overview of the resulting data
+Cqeffs.nondetects 
+## to express the first ten Cq values
+exprs(Cqeffs.nondetects)[1:10]
+## to express the first ten amplification efficiencies
+effs(Cqeffs.nondetects)[1:10] 
+@
+
+Following is the example to replace the non detects on the basis of median value within technical replicates and display of the first ten Cq and amplification efficiencies:
+
+<<NonDetects median method,eval=FALSE>>=
+Cqeffs.nondetects1 <- NonDetects(res.LC, Calc = "Median")
+## to express the overview of the resulting data
+Cqeffs.nondetects1 
+## to express the first ten Cq values
+exprs(Cqeffs.nondetects1)[1:10]
+## to express the first ten amplification efficiencies
+effs(Cqeffs.nondetects1)[1:10] 
+@
+
+Important Note: Before starting the further steps, we need to look on our final Cq values and amplification efficiencies, particularly of reference samples. The values of all the technical replicates of reference samples and positive calibrators of target and reference samples should not be NA, because reference samples are very important to compute the final fold concentration and relative expression ratio. If the final computed values of fold concentration and relative expression ratio has high number of NA, then the user needs to look the Cq values and amplification efficiencies of reference samples. The user can change the particular value by implementing the \code{ReplaceValue} function.
+%-------------------------------------------------------------------------------
+\section{Combining the replicates, based on Cq values and amplification efficiencies} 
+%-------------------------------------------------------------------------------
+
+User can combine technical replicates of Cq values by default method (mean) and compute their standard deviations
+within replicates, through following code:
+<<CombineTechReps Cq mean>>=
+## Combine technical replicates of Cq values by default method (mean)
+Cqreps <- CombineTechReps(res.LC)
+## to visualise the overview of the resulting data
+Cqreps 
+## to visualise the resulting data
+fData(Cqreps)[,c("ID", "Cq","sd.Cq")] 
+## to visualise the resulting data along with the other information of replicates
+fData(Cqreps) 
+@
+
+Combine technical replicates of amplification efficiencies and compute their standard deviation, by method of mean:
+
+<<CombineTechReps efficiency mean>>=
+## Combine technical replicates of amplification efficiencies by default method (mean)
+Effsreps <- CombineTechReps(res.LC, cRepCq = FALSE)
+## to visualise the overview of the resulting data
+Effsreps 
+## to visualise the resulting data
+fData(Effsreps)[,c("ID", "effs","sd.effs","Cq","sd.Cq")] 
+## to visualise the resulting data along with the other information of replicates
+fData(Effsreps) 
+@
+
+Combine technical replicates based on Cq, by method of median:
+<<CombineTechReps Cq median,eval=FALSE>>=
+## Combine technical replicates of Cq values by default method (mean)
+Cqreps1 <- CombineTechReps(res.LC, calc = "Median")
+## to visualise the overview of the resulting data
+Cqreps1 
+## to visualise the resulting data
+fData(Cqreps1)[,c("ID", "Cq","sd.Cq")]
+## to visualise the resulting data along with the other information of replicates
+fData(Cqreps1) 
+@
+
+Combine technical replicates based on amplification efficiencies, by method of median: 
+<<CombineTechReps efficiency median,eval=FALSE>>=
+## Combine technical replicates of amplification efficiencies by default method (mean)
+Effsreps1 <- CombineTechReps(res.LC, calc = "Median", cRepCq = FALSE)
+## to visualise the overview of the resulting data
+Effsreps1 
+## to visualise the resulting data
+fData(Effsreps1)[,c("ID", "effs","sd.effs","Cq","sd.Cq")] 
+## to visualise the resulting data along with the other information of replicates
+fData(Effsreps1) 
+@
+
+Combine technical replicates, based on Cq values by method of geometric mean:
+<<CombineTechReps Cq Geometrical mean,eval=FALSE>>=
+## Combine technical replicates of Cq values by default method (mean)
+Cqreps2 <- CombineTechReps(res.LC, calc = "Geom")
+## to visualise the overview of the resulting data
+Cqreps2 
+## to visualise the resulting data
+fData(Cqreps2)[,c("ID", "Cq","sd.Cq")]                                            
+## to visualise the resulting data along with other information of replicates
+fData(Cqreps2) 
+@
+
+Combine technical replicates, based on amplification efficiencies by method of geometric mean:
+<<CombineTechReps efficiency geometrical mean,eval=FALSE>>=
+## Combine technical replicates of Cq values by Geometric mean method
+Effsreps2 <- CombineTechReps(res.LC, calc = "Geom", cRepCq = FALSE)
+## to visualise the overview of the resulting data
+Effsreps2 
+## to visualise the resulting data
+fData(Effsreps2)[,c("ID", "effs","sd.effs","Cq","sd.Cq")]
+## to visualise the resulting data along with other information of replicates
+fData(Effsreps2)   
+@
+
+%-------------------------------------------------------------------------------
+\section{Compute delta Cq, delta delta Cq values and fold concentration of the Target samples} 
+%-------------------------------------------------------------------------------
+This step is further divided into two parts: i) Computing delta Cq values of the combined technical
+replicates, based on the Cq values. ii) Computing the delta delta Cq values and log of fold concentration
+of the samples. Both the parts are illustrated in further subsections.
+%-------------------------------------------------------------------------------
+\subsection{Compute delta Cq values} 
+%-------------------------------------------------------------------------------
+The delta Cq value can be computed by implementing the \code{DeltaCq} function on the combined Cq values of 
+technical replicates. These combined Cq values can be produced from the \code{CombineTechReps} function.
+The object of class \code{RTqPCRBatch}, which is an output of \code{CombineTechReps} function, as the input
+and will populate an object of class \code{RTqPCRBatch} with new slots as an output. The following code can
+be implemented to calculate the delta Cq values:
+
+<<DeltaCq>>=
+## Combine technical replicates of Cq values by default method (mean)
+deltaCq <- DeltaCq(Cqreps, Ref = "hk")
+## to visualise the overview of the resulting data
+deltaCq 
+## To visualise the results of delta Cq
+fData(deltaCq) 
+@
+
+%-------------------------------------------------------------------------------
+\subsection{Compute delta delta Cq values and fold concentration} 
+%-------------------------------------------------------------------------------
+The \code{DeltaDeltaCqAll} function can be implemented to compute the delta delta Cq values and log of 
+fold concentration of all the samples. The \code{DeltaDeltaCqAll} function will take an object of class
+\code{RTqPCRBatch} as an input and will populate an object of class \code{RTqPCRBatch} as an output.
+The ouptput of \code{DeltaCq} function will act as the input for the function \code {DeltaDeltaCqAll}.The 
+delta delta Cq values, standard deviation of delta delta Cq and fold concentration can be computed through following implementation:
+
+<<DeltaDeltaCqAll, eval = FALSE>>=
+## Compute delta delta Cq values and it's standard deviation and fold conentration
+deltadeltaCq <- DeltaDeltaCqAll(deltaCq)
+## to visualise the overview of the resulting data
+deltadeltaCq 
+## to visualise the resulting data
+fData(deltadeltaCq) 
+@
+
+%-------------------------------------------------------------------------------
+\section{Compute relative expression ratio} 
+%-------------------------------------------------------------------------------
+The function \code{NRQeffsAll} compute the relative expression ratio of Target by three methods of Roche, Pfaffl et al. and ddcq. The \code{NRQeffsAll} computes on the output of \code{CombineTechReps} function, where the technical replicates are combined on the basis of amplification efficiencies. Here is the example to implement the \code{NRQeffsAll} function:
+
+<<NRQeffsAll>>=
+## Compute delta delta Cq values and it's standard deviation and fold conentration
+exp.ratio <- NRQeffsAll(Effsreps, y= "hk")
+## to visualise the overview of the resulting data
+exp.ratio 
+## to visualise the resulting data
+fData(exp.ratio) 
+@
+
+%-------------------------------------------------------------------------------
+\section{Auxiliary functions} 
+%-------------------------------------------------------------------------------
+This section is divided into five subsections, based on the functions:
+%-------------------------------------------------------------------------------
+\subsection{read.Mx3005P} 
+%-------------------------------------------------------------------------------
+The \code{read.Mx3005P} function reads in the .txt Tab delimited files of raw fluorescence data of Mx3005P RTqPCR and populates an object of class \code{RTqPCR}. This function is used in the \code{read.RTqPCR} function. An example to implement the \code{read.Mx3005P} function is as follows:
+
+<<read.Mx3005P>>=
+path <- system.file("exData", package = "RTqPCR")
+Mx3005P.example <- file.path(path, "Mx3005P_Example.txt") 
+rtData <- read.Mx3005P(Mx3005P.example)
+##to express the overview of resulting data
+rtData  
+## to express the phenoData of cycData
+head(pData(rtData)) 
+## to express the fData of cycData
+head(fData(rtData)) 
+@
+
+%-------------------------------------------------------------------------------
+\subsection{Read.LC480SampleInfo} 
+%-------------------------------------------------------------------------------
+The \code{Read.LC480SampleInfo} function reads in the .txt Tab delimited file of sample information data of LC480 light cycler and populate an object of class \code{AnnotatedDataFrame}. This function is a modified function from the \code{link[ReadqPCR]{read.LC480SampleInfo}}. One change is introduced in the previously designed function to read all columns, irrespective of the condition whether they are completely filled or empty. Reading all the columns is required to perform the computation of other functions of the work flow.
+Following is the example to implement the \code{Read.LC480SampleInfo} function:
+
+<<Read.LC480SampleInfo>>=
+LC480.sampleInfo <- file.path(path, "LC480_example_SampleInfo.txt")
+LC480.saminfo <- Read.LC480SampleInfo(LC480.sampleInfo)
+##To express the overview of sample information data
+LC480.saminfo 
+##To express the phenodata
+head(pData(LC480.saminfo))
+@
+
+%-------------------------------------------------------------------------------
+\subsection{Read.Mx3005PSampleInfo} 
+%-------------------------------------------------------------------------------
+The \code{Read.Mx3005PSampleInfo} function reads in the .txt Tab delimited file of sample information data of Mx3005P RTqPCR and populate an object of class \code{AnnotatedDataFrame}. This function is further used in \code{Read.RTqPCRSampleInfo} function. It's a supplementary function to \code{Read.RTqPCRSampleInfo} function. 
+Following is the example to implement the \code{Read.Mx3005PSampleInfo} function:
+
+<<Read.Mx3005PSampleInfo>>=
+Mx3005P.sampleInfo <- file.path(path, "Mx3005P_example_SampleInfo.txt")
+Mx3005P.samInfo <- Read.Mx3005PSampleInfo(Mx3005P.sampleInfo)
+##To express the overview of the sample information data
+Mx3005P.samInfo 
+##To express the phenodata
+head(pData(Mx3005P.samInfo))
+@
+
+%-------------------------------------------------------------------------------
+\subsection{DeltaDeltaCq} 
+%-------------------------------------------------------------------------------
+The \code{DeltaDeltaCq} function computes the delta delta Cq values and fold concentration of the sample. It is designed as a supplementary to \code{DeltaDeltaCqAll} function. The output of \code{DeltaCq} function acts as the input to this function. It acts on an object of class {RTqPCRBatch} and returns the resulting data as an object of class \code{data.frame}. Although, it's an auxilliary function and can be directly implemented through 
+DeltaDeltaCqAll function. Following is the example for implementing the \code{DeltaDeltaCq} function:
+
+<<DeltaDeltaCq>>=
+x.deltadeltaCq <- DeltaDeltaCq(deltaCq)
+## to express the resulting data
+x.deltadeltaCq  
+@
+
+%-------------------------------------------------------------------------------
+\subsection{NRQeffs} 
+%-------------------------------------------------------------------------------
+The \code{NRQeffs} function computes the relative expression ratio and is designed as a supplementary function to the \code{NRQeffsAll} function. It takes the combined technical replicates, which are produced as an output of \code{CombineTechReps} function, where they are combined based on amplification efficiency. The \code{NRQeffs} function acts on an object of class \code{RTqPCRBatch} and returns the resulting data as an object of class \code{data.frame}.It's an auxilliary function to NRQeffsAll, which can be directly implemented through the NRQeffs
+function.
+
+%-------------------------------------------------------------------------------
+\subsection{RTqPCR.dataframe} 
+%-------------------------------------------------------------------------------
+The \code{RTqPCR.dataframe} function is designed as a supplementary function to the graphical user interface (GUI) for package\pkg{RTqPCR}. This GUI is based on the shinyApps. In shinyApps, the information are passed between functions as well as resulting ones are taken out in form of data.frame. So, to handle the functions based on S4 class \code{RTqPCRBatch}, the \code{RTqPCR.dataframe} function is designed, which can convert the object of class \code{data.frame} into object of class\code{RTqPCRBatch}. It also reveals a way to handle the S4 class object in shinyApp.
+
+%-------------------------------------------------------------------------------
+\section{Graphical User Interface (GUI)} 
+%-------------------------------------------------------------------------------
+
+<<RTqPCR.gui, eval=FALSE>>=
+#library(shiny)
+#RTqPCR.gui()
+@
+
+%-------------------------------------------------------------------------------
+\end{document}

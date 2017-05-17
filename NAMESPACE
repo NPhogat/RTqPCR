@@ -1,0 +1,17 @@
+importClassesFrom(ReadqPCR)
+
+import(Biobase, RColorBrewer, methods, qpcR, ReadqPCR, affy, NormqPCR, roxygen2)
+
+importFrom("Biobase", "exprs")
+importFrom("Biobase", "exprs<-")
+importFrom("Biobase", "se.exprs")
+importFrom("Biobase", "se.exprs<-")
+importFrom(shiny, runApp)
+
+exportClasses(RTqPCRBatch)
+
+export(exprs.well.order, "exprs.well.order<-", effs, "effs<-", se.effs, "se.effs<-",
+      Read.LC480SampleInfo, Read.Mx3005PSampleInfo, read.RTqPCRSampleInfo, CqEffs,
+      ReplaceAboveCutOff, ReplaceNAs, ReplaceValue,
+      NonDetects, CombineTechReps, DeltaCq, DeltaDeltaCq, DeltaDeltaCqAll,
+      NRQeffs, read.Mx3005P, read.RTqPCR, NRQeffsAll, RTqPCR.gui, RTqPCR.dataframe)

@@ -1,0 +1,35 @@
+General:Well	General:Repl. Of	General:Target Name	Rel Quant:Combined Sample/Target type
+14	A1	goi	Target Unknown
+15	A2	goi	Target Unknown
+16	A3	hk	Ref Unknown
+17	A1	goi	Target Unknown
+18	A2	goi	Target Unknown
+20	A3	hk	Ref Unknown
+21	A4	goi	Target Unknown
+26	A5	goi	Target Unknown
+27	A6	hk	Ref Unknown
+28	A4	goi	Target UNknown
+29	A5	goi	Target Unknown
+30	A7	hk	Ref PosCalibrator
+32	A8	goi	Target PosCalibrator
+33	A9	goi	Target Unknown
+38	A6	hk	Ref Unknown
+39	A8	goi	Target PosCalibrator
+40	A9	goi	Target Unknown
+41	A10	hk	Ref Unknown
+42	A11	goi	Target PosCalibrator
+50	A12	goi	Target Unknown
+51	A10	hk	Ref Unknown
+52	B1	goi	Target PosCalibrator
+53	A12	goi	Target Unknown
+54	B2	hk	Ref Unknown
+62	A11	goi	Target PosCalibrator
+63	B3	goi	Target Unknown
+64	A7	hk	Ref PosCalibrator
+65	B1	goi	Target PosCalibrator
+66	B3	goi	Target Unknown
+74	B2	hk	Ref Unknown
+75	B1	goi	Target PosCalibrator
+76	B4	negativ kontrolle	Target Negative
+77	B5	negativ kontrolle	Target Negative
+78	B6	negativ kontrolle	Target Negative

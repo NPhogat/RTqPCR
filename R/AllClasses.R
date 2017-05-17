@@ -1,0 +1,1 @@
+setClass("RTqPCRBatch", contains = "eSet")

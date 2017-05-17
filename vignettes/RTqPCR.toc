@@ -1,0 +1,22 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {2}Reading the raw fluorescent data}{2}{section.2}
+\contentsline {section}{\numberline {3}Reading the sample information data}{5}{section.3}
+\contentsline {section}{\numberline {4}Computing the Cq (Cycle Threshold) and amplification efficiencies}{7}{section.4}
+\contentsline {section}{\numberline {5}Replacing the values and removing the non-detects of Cq values and amplification efficiencies}{12}{section.5}
+\contentsline {subsection}{\numberline {5.1}ReplaceAboveCutOff}{12}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}ReplaceValue}{13}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}ReplaceNAs}{14}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}NonDetects}{14}{subsection.5.4}
+\contentsline {section}{\numberline {6}Combining the replicates, based on Cq values and amplification efficiencies}{16}{section.6}
+\contentsline {section}{\numberline {7}Compute delta Cq, delta delta Cq values and fold concentration of the Target samples}{22}{section.7}
+\contentsline {subsection}{\numberline {7.1}Compute delta Cq values}{22}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Compute delta delta Cq values and fold concentration}{23}{subsection.7.2}
+\contentsline {section}{\numberline {8}Compute relative expression ratio}{24}{section.8}
+\contentsline {section}{\numberline {9}Auxiliary functions}{24}{section.9}
+\contentsline {subsection}{\numberline {9.1}read.Mx3005P}{24}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Read.LC480SampleInfo}{26}{subsection.9.2}
+\contentsline {subsection}{\numberline {9.3}Read.Mx3005PSampleInfo}{26}{subsection.9.3}
+\contentsline {subsection}{\numberline {9.4}DeltaDeltaCq}{27}{subsection.9.4}
+\contentsline {subsection}{\numberline {9.5}NRQeffs}{28}{subsection.9.5}
+\contentsline {subsection}{\numberline {9.6}RTqPCR.dataframe}{28}{subsection.9.6}
+\contentsline {section}{\numberline {10}Graphical User Interface (GUI)}{28}{section.10}
