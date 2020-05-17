@@ -4,7 +4,7 @@ Title: A work flow for analysis and normalization of pre-processing RT-qPCR data
 Version: 0.1.0
 Date: 2017-04-25
 Author: Navneet Phogat, Matthias Kohl
-Maintainer: Matthias Kohl <Matthias.Kohl@stamats.de>
+Maintainer: Navneet Phogat <navneet84@rocketmail.com>
 Description: Functions and Graphical User Interface to compute the complete work
     flow of LC480 and Mx3005P RT-qPCR
 Depends:
